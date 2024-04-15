@@ -1,6 +1,7 @@
 **Umuco: Rwandan Cultural Heritage API**
 
-License: [https://choosealicense.com/licenses/](https://choosealicense.com/licenses/)
+<img src="images/land.jpeg">
+
 
 **Description**
 
