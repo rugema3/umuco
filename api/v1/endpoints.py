@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.proverbs import Proverb, db
+from flask import current_app as app
 
 proverbs_blueprint = Blueprint('proverbs', __name__)
 
@@ -52,11 +53,27 @@ def get_proverbs():
     Returns:
     - JSON response containing all proverbs.
     """
-    # Query the database to retrieve all proverbs
-    proverbs = Proverb.query.all()
+    try:
+        # Query the database to retrieve all proverbs
+        proverbs = Proverb.query.all()
+        app.logger.info("Proverbs querried successfully.")
 
-    # Serialize the proverbs into JSON format
-    serialized_proverbs = [proverb.serialize() for proverb in proverbs]
+        try:
+            # Serialize the proverbs into JSON format
+            serialized_proverbs = [proverb.serialize() for proverb in proverbs]
+            app.logger.info("Serialization successfull.")
 
-    # Return the JSON response
-    return jsonify(serialized_proverbs), 200
+        except Exception as e:
+            app.logger.error("Serialization failed: %s", e)
+            message = f"OOPS!! Serialization failed"
+            return jsonify({'error': message}), 500
+
+        # Return the JSON response
+        return jsonify(serialized_proverbs), 200
+    
+    except Exception as e:
+        # Log error if data retrieval fails
+        app.logger.error('Failed to retrieve proverbs: %s', e)
+
+        # Return error response
+        return jsonify({'error': 'OOPS!!! an error occured while processing your request.'}), 500
