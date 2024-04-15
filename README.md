@@ -20,13 +20,12 @@ This open-source project aims to promote Rwandan culture and make it discoverabl
 **Getting Started**
 
 1. **Prerequisites:**
-    * Python 3.x
-    * pip (Python package installer)
+    * Python 3.11.2
 
 2. **Installation:**
 
    ```bash
-   git clone https://github.com/username/umuco.git
+   git clone https://github.com/rugema3/umuco.git
    cd umuco
    pip install -r requirements.txt
    ```
@@ -34,7 +33,7 @@ This open-source project aims to promote Rwandan culture and make it discoverabl
 3. **Running the API:**
 
    ```bash
-   python api.py
+   python3 app.py
    ```
 
    This will start the API development server. You can access the API documentation at `http://127.0.0.1:5000/docs` (default port may vary).
