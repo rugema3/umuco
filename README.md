@@ -3,9 +3,13 @@
 <img src="images/land.jpeg">
 
 
+
 **Description**
 
-Umuco (meaning "culture" in Kinyarwanda) is a Python Flask API that provides access to a collection of Rwandan proverbs and other cultural artifacts (planned for future expansion). This open-source project aims to promote Rwandan culture and make it discoverable for developers and enthusiasts around the world.
+Umuco (meaning "culture" in Kinyarwanda) is a Python Flask API that provides access to a collection of Rwandan proverbs and other cultural artifacts (planned for future expansion). 
+This open-source project aims to promote Rwandan culture and make it discoverable for developers and enthusiasts around the world.
+
+<img src="images/intore.jpeg">
 
 **Features (Current):**
 
