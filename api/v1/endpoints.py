@@ -3,13 +3,13 @@ from models.proverbs import Proverb, db
 
 proverbs_blueprint = Blueprint('proverbs', __name__)
 
-@proverbs_blueprint.route('/api/v1/proverbs', methods=['POST'])
-def create_proverb():
+@proverbs_blueprint.route('/api/v1/insert_proverbs', methods=['POST'])
+def insert_proverb():
     """
-    Create a new proverb.
+    Insert a new proverb.
 
-    This endpoint allows the creation of a new proverb by providing the proverb text,
-    category, translation, and explanation in the request body.
+    This endpoint allows the insertion of a new proverb by providing the 
+    proverb text, category, translation, and explanation in the request body.
 
     Request JSON Parameters:
     - proverb: The text of the proverb (required)
@@ -43,3 +43,20 @@ def create_proverb():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
+    
+@proverbs_blueprint.route('/api/v1/get_proverbs', methods=['GET'])
+def get_proverbs():
+    """
+    Retrieve all proverbs from the database.
+
+    Returns:
+    - JSON response containing all proverbs.
+    """
+    # Query the database to retrieve all proverbs
+    proverbs = Proverb.query.all()
+
+    # Serialize the proverbs into JSON format
+    serialized_proverbs = [proverb.serialize() for proverb in proverbs]
+
+    # Return the JSON response
+    return jsonify(serialized_proverbs), 200
