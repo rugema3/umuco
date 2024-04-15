@@ -19,6 +19,7 @@ db_host = os.getenv('DB_HOST')
 print("db_host: ", db_host)
 db_port = os.getenv('DB_PORT')
 db_name = os.getenv('DB_NAME')
+print("DB name: ", db_name)
 
 # Configure the Flask logger
 handler = logging.FileHandler('app.log')  # Create a file handler
@@ -46,4 +47,4 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
