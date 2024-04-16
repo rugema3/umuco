@@ -1,10 +1,11 @@
-from flask import Flask
+from flask import Flask, current_app
 import urllib.parse
 import os
 from dotenv import load_dotenv
 import logging
-from models.proverbs import db
-from api.v1.endpoints import proverbs_blueprint
+from models.umurage import db
+from api.v1.proverbs_api import proverbs_blueprint
+from api.v1.kagame_quotes_api import kagame_blueprint
 
 app = Flask(__name__)
 
@@ -41,10 +42,11 @@ db.init_app(app)
 
 # Register API blueprints
 app.register_blueprint(proverbs_blueprint)
+app.register_blueprint(kagame_blueprint)
 
 # Create all tables based on the defined models
 with app.app_context():
-    db.create_all()
+    db.create_all()   
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
