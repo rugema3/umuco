@@ -4,9 +4,10 @@ from flask import current_app as app
 
 proverbs_blueprint = Blueprint('proverbs', __name__)
 
+"""
 @proverbs_blueprint.route('/api/v1/insert_proverbs', methods=['POST'])
 def insert_proverb():
-    """
+    
     Insert a new proverb.
 
     This endpoint allows the insertion of a new proverb by providing the 
@@ -22,7 +23,7 @@ def insert_proverb():
     - 201 Created: If the proverb is created successfully.
     - 400 Bad Request: If the request body is missing required parameters or contains invalid data.
     - 500 Internal Server Error: If an unexpected error occurs during proverb creation.
-    """
+    
     # Parse request data
     data = request.json
     proverb = data.get('proverb')
@@ -44,7 +45,7 @@ def insert_proverb():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
-    
+""" 
 @proverbs_blueprint.route('/api/v1/get_proverbs', methods=['GET'])
 def get_proverbs():
     """

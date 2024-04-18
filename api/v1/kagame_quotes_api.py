@@ -4,9 +4,9 @@ from flask import current_app as app
 
 kagame_blueprint = Blueprint('kagame_quote', __name__)
 
+"""
 @kagame_blueprint.route('/api/v1/insert_quote', methods=['POST'])
 def insert_quote():
-    """
     Insert a new quote.
 
     This endpoint allows the insertion of a new quote by providing the 
@@ -19,7 +19,7 @@ def insert_quote():
     - 201 Created: If the quote is created successfully.
     - 400 Bad Request: If the request body is missing required parameters or contains invalid data.
     - 500 Internal Server Error: If an unexpected error occurs during proverb creation.
-    """
+    
     # Parse request data
     data = request.json
     quote = data.get('quote')
@@ -38,15 +38,18 @@ def insert_quote():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': str(e)}), 500
-    
+""" 
+
 @kagame_blueprint.route('/api/v1/get_kagame_quotes', methods=['GET'])
 def get_quotes():
     """
+    
     Retrieve all quotes.
 
     Returns:
     - JSON response containing all quotes.
     """
+
     try:
         # Query the database to retrieve all proverbs
         quotes = KagameQuote.query.all()
