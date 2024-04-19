@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from models.umurage import Proverb, db
 from flask import current_app as app
+import random
 
 proverbs_blueprint = Blueprint('proverbs', __name__)
 
@@ -72,6 +73,40 @@ def get_proverbs():
         # Return the JSON response
         return jsonify(serialized_proverbs), 200
     
+    except Exception as e:
+        # Log error if data retrieval fails
+        app.logger.error('Failed to retrieve proverbs: %s', e)
+
+        # Return error response
+        return jsonify({'error': 'OOPS!!! an error occured while processing your request.'}), 500
+
+@proverbs_blueprint.route('/api/v1/get_random_proverb', methods=['GET'])
+def get_random_proverbs():
+    """Get a random proverb.
+    Returns:
+    - JSON response containing a random proverb.
+    """
+    try:
+        # Query the database to retrieve all proverbs
+        proverbs = Proverb.query.all()
+        app.logger.info("Proverbs querried successfully.")
+
+        try:
+            # Serialize the proverbs into JSON format
+            serialized_proverbs = [proverb.serialize() for proverb in proverbs]
+            app.logger.info("Serialization successfull.")
+            # Get a random proverb from the list
+            random_proverb = random.choice(serialized_proverbs)
+            print(random_proverb)
+
+        except Exception as e:
+            app.logger.error("Serialization failed: %s", e)
+            message = f"OOPS!! Serialization failed"
+            return jsonify({'error': message}), 500
+
+        # Return the JSON response
+        return jsonify(random_proverb), 200
+
     except Exception as e:
         # Log error if data retrieval fails
         app.logger.error('Failed to retrieve proverbs: %s', e)
