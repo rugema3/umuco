@@ -36,7 +36,7 @@ This open-source project aims to promote Rwandan culture and make it discoverabl
    python3 app.py
    ```
 
-   This will start the API development server. You can access the API documentation at `http://127.0.0.1:5000/docs` (default port may vary).
+   This will start the API development server. You can access the API documentation <a href="https://documenter.getpostman.com/view/25450358/2sA3Bn6CX2">here</a>`http://127.0.0.1:5000/docs` (default port may vary).
 
 **Contributing**
 
