@@ -43,34 +43,39 @@ def insert_quote():
 @kagame_blueprint.route('/api/v1/get_kagame_quotes', methods=['GET'])
 def get_quotes():
     """
-    
-    Retrieve all quotes.
+    Retrieves all quotes and returns them as a JSON response.
 
     Returns:
-    - JSON response containing all quotes.
+          JSON response:
+          - On success: Contains a list of serialized Kagame quotes (200 OK).
+          - On data retrieval error: Error message indicating "No quotes found" (404 Not Found).
+          - On other errors: Generic error message (500 Internal Server Error).
     """
 
     try:
         # Query the database to retrieve all proverbs
         quotes = KagameQuote.query.all()
-        app.logger.info("Quotes querried successfully.")
+
+        app.logger.info("Quotes queried successfully.")
+
+        if not quotes:
+            # Handle empty quote list (potential 404)
+            return jsonify({'error': 'No quotes found'}), 404
 
         try:
-            # Serialize the proverbs into JSON format
+            # Serialize the quotes into JSON format with detailed error handling
             serialized_quotes = [quote.serialize() for quote in quotes]
-            app.logger.info("Serialization successfull.")
+            app.logger.info("Serialization successful.")
+            return jsonify(serialized_quotes), 200
 
         except Exception as e:
-            app.logger.error("Serialization failed: %s", e)
+            # Log detailed serialization error information
+            app.logger.error("Serialization failed: %s (%s)", e, type(e))
             message = f"OOPS!! Serialization failed"
             return jsonify({'error': message}), 500
 
-        # Return the JSON response
-        return jsonify(serialized_quotes), 200
-    
     except Exception as e:
-        # Log error if data retrieval fails
-        app.logger.error('Failed to retrieve quotes: %s', e)
+        # Log generic data retrieval error information
+        app.logger.error("Failed to retrieve Kagame quotes: %s (%s)", e, type(e))
+        return jsonify({'error': 'Internal server error'}), 500
 
-        # Return error response
-        return jsonify({'error': 'OOPS!!! an error occured while processing your request.'}), 500
